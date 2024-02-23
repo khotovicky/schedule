@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Day, Event } from "../types";
+import { Day } from "../types";
 import { Typography, Flex, Table, Button, Input } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-
-const [newEvent, setNewEvent] = useState<>
 
 const { Title } = Typography;
 
@@ -40,9 +38,7 @@ export const DayEvents: React.FC<IDayEvents> = ({ day }) => {
     setIsAdding(false);
   }
 
-  function addEvent() {
-
-  } 
+  function addEvent() {}
 
   return (
     <Flex className="example-component" vertical={true}>
