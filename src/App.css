@@ -4,3 +4,23 @@
   padding: 2rem;
   text-align: center;
 }
+
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+}
+
+.chip {
+  background-color: aquamarine;
+  border: 1px solid gray;
+}
+
+.example-component {
+  margin: 24px auto;
+  background: white;
+}
