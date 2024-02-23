@@ -1,4 +1,5 @@
 export type Event = {
+  key: string;
   title: string;
   description: string;
   time: string;
@@ -6,7 +7,7 @@ export type Event = {
 
 export type Day = {
   date: string;
-  title: string | null;
-  description: string | null;
-  events: Event[] | null;
+  title?: string;
+  description?: string;
+  events?: Event[];
 };
