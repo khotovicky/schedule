@@ -1,53 +1,26 @@
-import type { Dayjs } from "dayjs";
-import { Calendar, Tag, Flex } from "antd";
+import dayjs, { type Dayjs } from "dayjs";
+import { Calendar } from "antd";
 import type { CalendarProps } from "antd";
-import type { Day } from "../types";
+import {CalendarDayCell} from "./CalendarDayCell.tsx";
+import {CalendarDay} from "../types.ts";
+import {SelectInfo} from "antd/es/calendar/generateCalendar";
 
-const exampleDay: Day = {
-  date: "9",
-  title: "девятый день",
-  events: [
-    { key: "1", title: "Девятины", time: "9:00", description: "lol" },
-    { key: "2", title: "Концерт", time: "16:00", description: "kek" },
-  ],
-};
+interface Props {
+  getDay: (current: Dayjs) => CalendarDay | undefined
+  onSelect: (date: dayjs.Dayjs, selectInfo: SelectInfo) =>  void
+  value: dayjs.Dayjs
+}
 
-const getDayData = (value: Dayjs) => {
-  let dayData;
-  switch (value.date()) {
-    case Number(exampleDay.date):
-      dayData = [{ title: exampleDay.title, events: exampleDay.events }];
-      break;
-    default:
-  }
-  return dayData || [];
-};
+export default function TheCalendar ({ getDay, onSelect, value }: Props) {
 
-const dateCellRender = (value: Dayjs) => {
-  const dayData = getDayData(value);
-  return (
-    <ul className="events">
-      {dayData.map((item) => (
-        <li key={item.title}>
-          <div className="chip">{item.title}</div>
-          {item.events?.map((event) => (
-            <Flex>
-              <Tag>
-                {event.title} {event.time}
-              </Tag>
-            </Flex>
-          ))}
-        </li>
-      ))}
-    </ul>
-  );
-};
+  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current, info) => {
 
-const cellRender: CalendarProps<Dayjs>["cellRender"] = (current, info) => {
-  if (info.type === "date") return dateCellRender(current);
-  return info.originNode;
-};
+    const day = getDay(current)
 
-export default function TheCalendar(days?: Day[]) {
-  return <Calendar cellRender={cellRender} />;
+    if (info.type !== "date" || !day) return null
+
+    return <CalendarDayCell title={day.title} events={day.events} />
+  };
+
+  return <Calendar onSelect={onSelect} cellRender={cellRender} value={value} />;
 }

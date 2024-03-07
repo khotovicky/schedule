@@ -1,13 +1,15 @@
-export type Event = {
-  key: string;
-  title: string;
-  description: string;
-  time: string;
-};
+import type {Dayjs} from "dayjs";
 
-export type Day = {
-  date: string;
-  title?: string;
-  description?: string;
-  events?: Event[];
-};
+export interface CalendarDay {
+  title?: string
+  description?: string
+  events?: CalendarEvent[]
+  date: Dayjs
+}
+
+export interface CalendarEvent {
+  key: string
+  title?: string
+  description: string;
+  time: Dayjs;
+}
